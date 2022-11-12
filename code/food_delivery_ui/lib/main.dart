@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_ui/screens/home_screen.dart';
 
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Food Delivery UI',
       debugShowCheckedModeBanner: false,
+      scrollBehavior: _CustomScrollBehavior(),
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.grey[50],
         primaryColor: Colors.deepOrangeAccent,
@@ -21,4 +23,16 @@ class MyApp extends StatelessWidget {
       home: const HomeScreen(),
     );
   }
+}
+
+// Implements custom scrolling to enable mouse scroll on desktop and desktop web
+// see: https://docs.flutter.dev/release/breaking-changes/default-scroll-behavior-drag
+class _CustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        // etc.
+      };
 }
