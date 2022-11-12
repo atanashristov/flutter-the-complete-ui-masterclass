@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_ui/data/data.dart';
+import 'package:food_delivery_ui/widgets/nearby_restaurants.dart';
 import 'package:food_delivery_ui/widgets/recent_orders.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,12 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: ListView(
         children: [
-          const SizedBox(height: 8.0),
+          const SizedBox(height: 12.0),
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20.0,
-              vertical: 8.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
             child: TextField(
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(vertical: 15.0),
@@ -75,8 +73,15 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          const RecentOrders(),
-          const SizedBox(height: 8.0),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
+            child: RecentOrders(),
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
+            child: NearbyRestaurants(),
+          ),
+          const SizedBox(height: 16.0),
         ],
       ),
     );

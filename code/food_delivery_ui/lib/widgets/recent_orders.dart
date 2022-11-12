@@ -9,48 +9,59 @@ class RecentOrders extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
-          child: Text(
-            'Recent Orders',
-            style: TextStyle(
-              fontSize: 24.0,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 1.2,
-            ),
+      children: const [
+        Text(
+          'Recent Orders',
+          style: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1.2,
           ),
         ),
-        SizedBox(
-          height: 120.0,
-          child: ListView.builder(
-            // Add Android specific bouncing physics
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            scrollDirection: Axis.horizontal,
-            //physics: const AlwaysScrollableScrollPhysics(),
-            itemCount: currentUser.orders.length,
-            itemBuilder: (BuildContext context, int index) {
-              return _ResentOrder(
-                order: currentUser.orders[index],
-              );
-            },
-          ),
-        ),
+        _OrdersList(),
       ],
     );
   }
 }
 
-class _ResentOrder extends StatelessWidget {
-  const _ResentOrder({required this.order});
+class _OrdersList extends StatelessWidget {
+  const _OrdersList();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 120.0,
+      child: ListView.builder(
+        // Add Android specific bouncing physics
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        //physics: const AlwaysScrollableScrollPhysics(),
+        itemCount: currentUser.orders.length,
+        itemBuilder: (BuildContext context, int index) {
+          return _OrdersListItem(
+            order: currentUser.orders[index],
+            index: index,
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _OrdersListItem extends StatelessWidget {
+  const _OrdersListItem({
+    Key? key,
+    required this.order,
+    required this.index,
+  }) : super(key: key);
 
   final Order order;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(8.0),
+      margin: EdgeInsets.fromLTRB(index == 0 ? 0 : 8.0, 8.0, 8.0, 8.0),
       width: 320.0,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -88,7 +99,7 @@ class _ResentOrder extends StatelessWidget {
                       children: [
                         Text(
                           order.food.name,
-                          style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal),
+                          style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 4.0),
@@ -100,7 +111,7 @@ class _ResentOrder extends StatelessWidget {
                         const SizedBox(height: 4.0),
                         Text(
                           order.date,
-                          style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
+                          style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
