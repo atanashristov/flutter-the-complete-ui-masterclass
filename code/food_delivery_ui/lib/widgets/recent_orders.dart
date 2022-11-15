@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_ui/data/data.dart';
 import 'package:food_delivery_ui/models/order.dart';
+import 'package:food_delivery_ui/widgets/plus_button.dart';
 
 class RecentOrders extends StatelessWidget {
   const RecentOrders({super.key});
@@ -50,10 +51,9 @@ class _OrdersList extends StatelessWidget {
 
 class _OrdersListItem extends StatelessWidget {
   const _OrdersListItem({
-    Key? key,
     required this.order,
     required this.index,
-  }) : super(key: key);
+  });
 
   final Order order;
   final int index;
@@ -121,17 +121,7 @@ class _OrdersListItem extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(right: 20.0),
-            width: 48.0,
-            decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(30.0)),
-            child: IconButton(
-              icon: const Icon(Icons.add),
-              color: Colors.white,
-              iconSize: 30.0,
-              onPressed: () {},
-            ),
-          )
+          const PlusButton(margin: EdgeInsets.only(right: 20.0)),
         ],
       ),
     );

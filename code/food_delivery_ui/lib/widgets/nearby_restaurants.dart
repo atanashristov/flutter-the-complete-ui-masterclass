@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_ui/data/data.dart';
 import 'package:food_delivery_ui/models/restaurant.dart';
+import 'package:food_delivery_ui/screens/restaurant_screen.dart';
 import 'package:food_delivery_ui/widgets/rating_stars.dart';
 
 class NearbyRestaurants extends StatelessWidget {
@@ -34,9 +35,17 @@ class _RestaurantsList extends StatelessWidget {
     return Column(
       children: [
         ...restaurants.asMap().entries.map(
-              (e) => _RestaurantsListItem(
-                restaurant: e.value,
-                index: e.key,
+              (e) => GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => RestaurantScreen(restaurant: e.value),
+                  ),
+                ),
+                child: _RestaurantsListItem(
+                  restaurant: e.value,
+                  index: e.key,
+                ),
               ),
             ),
       ],
@@ -63,11 +72,14 @@ class _RestaurantsListItem extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(15.0),
-            child: Image(
-              height: 130.0,
-              width: 130.0,
-              image: AssetImage(restaurant.imageUrl),
-              fit: BoxFit.cover,
+            child: Hero(
+              tag: restaurant.imageUrl,
+              child: Image(
+                height: 130.0,
+                width: 130.0,
+                image: AssetImage(restaurant.imageUrl),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Expanded(
